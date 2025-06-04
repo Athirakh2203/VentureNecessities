@@ -1,0 +1,391 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elegant Category Form</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <style>
+        /* Modern Elegant Background */
+        body {
+            background: linear-gradient(125deg,rgb(104, 135, 10),rgb(210, 28, 171));
+            background-size: 400% 400%;
+            animation: gradientFlow 15s ease infinite;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 1200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Modern Card Container */
+        .card-container {
+            background: rgba(66, 4, 32, 0.08);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 20px 50px rgba(78, 6, 73, 0.3);
+            width: 420px;
+            padding: 50px 40px;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decorative Elements */
+        .card-container::before {
+            content: '';
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg,rgb(48, 61, 1),rgb(32, 56, 2));
+            border-radius: 50%;
+            top: -75px;
+            right: -75px;
+            opacity: 0.5;
+            filter: blur(20px);
+        }
+        
+        .card-container::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg,rgb(107, 6, 60),rgb(59, 2, 82));
+            border-radius: 50%;
+            bottom: -50px;
+            left: -50px;
+            opacity: 0.5;
+            filter: blur(15px);
+        }
+
+        .card-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+        }
+
+        /* Form Content */
+        .form-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Input Styling */
+        .input-wrapper {
+            position: relative;
+            margin: 30px 0;
+        }
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.07);
+            border: none;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            font-weight: 400;
+            padding: 15px 20px;
+            border-radius: 12px;
+            font-size: 16px;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            width: 100%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 300;
+        }
+
+        .form-control:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.1);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-focus-effect {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(to right,rgb(2, 44, 56),rgb(1, 26, 56));
+            transition: width 0.4s ease;
+        }
+
+        .form-control:focus ~ .input-focus-effect {
+            width: 100%;
+        }
+
+        /* Button Styling */
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 30px;
+        }
+
+        .add-btn {
+            background: linear-gradient(135deg,rgb(53, 3, 58),rgb(46, 3, 40));
+            color: white;
+            border: none;
+            font-size: 16px;
+            padding: 14px 30px;
+            border-radius: 12px;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 15px rgba(33, 2, 45, 0.3);
+            font-weight: 500;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .add-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(1, 33, 46, 0.2), transparent);
+            transition: left 0.7s ease;
+        }
+
+        .add-btn:hover::before {
+            left: 100%;
+        }
+
+        .add-btn:hover {
+            background: linear-gradient(135deg,rgb(21, 2, 52),rgb(42, 1, 68));
+            box-shadow: 0 12px 20px rgba(39, 2, 54, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .manage-btn {
+            background: linear-gradient(135deg,rgb(2, 46, 58),rgb(2, 50, 52));
+            color: white;
+            border: none;
+            font-size: 16px;
+            padding: 14px 30px;
+            border-radius: 12px;
+            transition: all 0.4s ease;
+            text-decoration: none;
+            display: block;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            box-shadow: 0 8px 15px rgba(1, 42, 24, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .manage-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(4, 64, 42, 0.2), transparent);
+            transition: left 0.7s ease;
+        }
+
+        .manage-btn:hover::before {
+            left: 100%;
+        }
+
+        .manage-btn:hover {
+            background: linear-gradient(135deg,rgb(1, 83, 74),rgb(2, 59, 75));
+            box-shadow: 0 12px 20px rgba(2, 76, 80, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Heading Styling */
+        .form-title {
+            font-size: 28px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .form-subtitle {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        /* Decorative circles */
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.03);
+            box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.05);
+            z-index: 1;
+        }
+
+        .circle-1 {
+            width: 200px;
+            height: 200px;
+            top: -100px;
+            right: -100px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .circle-2 {
+            width: 150px;
+            height: 150px;
+            bottom: -75px;
+            left: -75px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Background particles */
+        .particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    <div class="container">
+        <div class="card-container">
+            <div class="circle circle-1"></div>
+            <div class="circle circle-2"></div>
+            <div class="form-content">
+                <h2 class="form-title">Add Category</h2>
+                <p class="form-subtitle">Create a new category for your collection</p>
+                
+                <form method="POST">
+                    <div class="input-wrapper">
+                        <input type="text" class="form-control" name="category_name" placeholder="Enter category name" required>
+                        <span class="input-focus-effect"></span>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button type="submit" class="add-btn">Create Category</button>
+                        <a href="{% url 'categorydetails' %}" class="manage-btn">Manage Categories</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create particles
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                createParticle();
+            }
+            
+            function createParticle() {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random size (1-4px)
+                const size = Math.random() * 3 + 1;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                // Random position
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.top = Math.random() * 100 + 'vh';
+                
+                // Random opacity
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
+                
+                // Append to container
+                particlesContainer.appendChild(particle);
+                
+                // Animate particle
+                animateParticle(particle);
+            }
+            
+            function animateParticle(particle) {
+                // Starting position
+                const startX = parseFloat(particle.style.left);
+                const startY = parseFloat(particle.style.top);
+                
+                // Random speed factors
+                const speedX = Math.random() * 0.5 - 0.25;
+                const speedY = Math.random() * 0.5 - 0.25;
+                
+                // Set animation duration
+                const duration = Math.random() * 30000 + 20000; // 20-50 seconds
+                const startTime = Date.now();
+                
+                function move() {
+                    const elapsed = Date.now() - startTime;
+                    
+                    if (elapsed < duration) {
+                        const progress = elapsed / duration;
+                        
+                        // Calculate new position
+                        const newX = startX + (speedX * window.innerWidth * progress);
+                        const newY = startY + (speedY * window.innerHeight * progress);
+                        
+                        // Update position
+                        particle.style.transform = `translate(${speedX * window.innerWidth * progress}px, ${speedY * window.innerHeight * progress}px)`;
+                        
+                        // Continue animation
+                        requestAnimationFrame(move);
+                    } else {
+                        // Restart particle
+                        particlesContainer.removeChild(particle);
+                        createParticle();
+                    }
+                }
+                
+                requestAnimationFrame(move);
+            }
+            
+            // Add focus effect for input
+            const inputs = document.querySelectorAll('.form-control');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentNode.classList.add('focused');
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.parentNode.classList.remove('focused');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

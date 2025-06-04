@@ -1,0 +1,128 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipment Registration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+          display: flex;
+          height: 100vh;
+          align-items: center;
+          justify-content: center;
+          background: 
+              linear-gradient(rgba(245, 105, 177, 0.4), rgba(255, 255, 255, 0.5)), 
+              url("{% static 'images/equi1.jpg' %}") no-repeat center center/cover;
+      }
+
+        .container {
+            display: flex;
+            width: 100%;
+            max-width: 1000px;
+            max-height: 700px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.9);
+            overflow: hidden;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-container {
+            flex: 1;
+            background-color: #034542;
+            padding: 15px;
+        }
+          
+        .image-container {
+            flex: 1;
+            background: url("{% static 'img/bg18.jpg' %}") no-repeat center center/cover;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 34px;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 25px;
+            border: 1px solid #000000;
+            border-radius: 6px;
+            background-color: #cce6ff;
+            font-size: 14px;
+        }
+        
+        input::placeholder,
+        textarea::placeholder {
+           color: #000000;
+           font-size: 18px;
+           text-align: center;
+        }
+
+        button {
+            width: 30%;
+            background: #63045f;
+            color: white;
+            border: none;
+            padding: 12px;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #002966;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h1>ADD EQUIPMENT</h1><br><br>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <input type="text" id="name" name="equipment_name" placeholder="Equipment Name" required>
+
+                <input type="file" id="image" name="image" accept="image/*" required />
+
+                <textarea id="description" name="description" placeholder="Enter equipment description" required></textarea>
+
+                <select id="zone" name="zone" required>
+                    <option value="" disabled selected>Select Adventure Zone</option>
+                    <option value="Land Adventure Gear">Land Adventure Gear</option>
+                    <option value="Ocean Adventure Gear">Ocean Adventure Gear</option>
+                    <option value="Aero Adventure Gear">Aero Adventure Gear</option>
+                    <option value="Frozen Adventure Gear">Frozen Adventure Gear</option>
+                </select>
+
+                <input type="number" id="stock" name="stock" placeholder="Stock Quantity" required>
+
+                <input type="number" step="0.01" id="amount" name="amount" placeholder="Amount" required>
+
+                <br><br><br>
+                <button type="submit">ADD</button><br><br><br><br>
+            </form>
+        </div>
+        <div class="image-container"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,148 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Venturenecessities Register</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url("{% static 'img/c21.jpg' %}") no-repeat center center/cover;
+            font-family: Arial, sans-serif;
+            color: #fff;
+        }
+        .registration-form {
+            width: 400px;
+            padding: 30px 40px;
+            border-radius: 15px;
+            background: rgba(5, 5, 5, 0.7);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+        .registration-form input, .registration-form textarea {
+            width: 100%;
+            background: transparent;
+            border: 2px solid #fff;
+            color: #fff;
+            font-size: 16px;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            box-sizing: border-box;
+        }
+        .registration-form button {
+            width: 100%;
+            height: 40px;
+            background: #04fff0;
+            color: #000;
+            border: none;
+            border-radius: 20px;
+            font-size: 15px;
+            font-weight: 600;
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+        .registration-form button:hover {
+            background: transparent;
+            border: 2px solid #04fff0;
+            color: #fff;
+            transform: scale(1.05);
+            box-shadow: 0 0 10px #04fff0;
+        }
+        .register p {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        .register a {
+            color: #04fff0;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .register a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="registration-form">
+        <h2>Seller Registration</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" placeholder="Name" name="name" required>
+            <input type="text" placeholder="Company Name" name="companyname" required>
+            <input type="email" placeholder="Email" name="email" required>
+            <input type="text" placeholder="Phone" name="phone" required>
+            <input type="text" placeholder="Licence Number" name="licence_no" required>
+            <input type="text" placeholder="Username" name="username" required>
+            <input type="password" placeholder="Password" name="password" required>
+            <textarea name="place" placeholder="Place" rows="3" required></textarea>
+            <input type="text" placeholder="Landmark" name="landmark">
+            <button type="submit">Register</button>
+            <div class="register">
+                <p>Already have an account? <a href="{% url 'login' %}">Sign in</a></p>
+            </div>
+        </form>
+    </div>
+    <script>
+        function validateForm() {
+            // Get form field values
+            const companyname = document.getElementById("companyname").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const phone = document.getElementById("phone").value.trim();
+            const place = document.getElementById("place").value.trim();
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value.trim();
+            const location = document.getElementById("location").value.trim();
+    
+            // Check Name
+            if (companyname === "") {
+                alert("Name is required.");
+                return false;
+            }
+    
+            // Check Email
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            if (!emailPattern.test(email)) {
+                alert("Please enter a valid email.");
+                return false;
+            }
+    
+            // Check Phone
+            if (!/^\d{10}$/.test(phone)) {
+                alert("Phone must be a 10-digit number.");
+                return false;
+            }
+    
+            // Check Place
+            if (place === "") {
+                alert("Place is required.");
+                return false;
+            }
+    
+            // Check Username
+            if (username === "") {
+                alert("Username is required.");
+                return false;
+            }
+    
+            // Check Password
+            if (password.length < 8) {
+                alert("Password must be at least 8 characters long.");
+                return false;
+            }
+    
+            // Check Location
+            if (location === "") {
+                alert("Location is required.");
+                return false;
+            }
+    
+            // If all validations pass
+            return true;
+        }
+    </script>
+</body>
+</html>

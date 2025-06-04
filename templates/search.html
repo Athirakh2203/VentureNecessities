@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adventure Gear Collection</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    body {
+      background: linear-gradient(125deg, #224201, #02233e, #5807ee, #ed03ce);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      min-height: 100vh;
+      padding: 40px 20px;
+      position: relative;
+    }
+    
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="25" cy="25" r="1" fill="%23ffffff22"/><circle cx="75" cy="75" r="1" fill="%23ffffff22"/></svg>');
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.5;
+    }
+    
+    h1 {
+      text-align: center;
+      margin-bottom: 50px;
+      color: #eff0f2;
+      font-size: 2.8rem;
+      font-weight: 700;
+      position: relative;
+      padding-bottom: 15px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    h1::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(90deg, #5156f1, #d307ee, #81061f);
+      border-radius: 4px;
+    }
+    
+    @keyframes shine {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    
+    .products-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 35px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .product-card {
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      border: 1px solid rgba(238, 238, 238, 0.8);
+      background: white;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.12);
+      border-color: rgba(200, 200, 200, 0.8);
+    }
+    
+    .product-card::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      height: 5px;
+      background: linear-gradient(90deg, #6366f1, #c026d3, #f97316);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border-radius: 20px 20px 0 0;
+    }
+    
+    .product-card:hover::before {
+      opacity: 1;
+    }
+    
+    .product-image {
+      position: relative;
+      height: 240px;
+      overflow: hidden;
+      background: linear-gradient(to right, #043464, #18bdc6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .product-image::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at center, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 60%);
+      transform: rotate(45deg);
+      z-index: 1;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+    
+    .product-image img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+      display: block;
+      transition: transform 0.6s ease;
+      z-index: 2;
+    }
+    
+    .product-card:hover .product-image img {
+      transform: scale(1.08);
+    }
+    
+    .product-details {
+      padding: 25px;
+      position: relative;
+    }
+    
+    .product-details::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,0.05), rgba(0,0,0,0));
+    }
+    
+    .product-name {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #2d3748;
+      letter-spacing: 0.3px;
+      line-height: 1.4;
+    }
+    
+    .product-description {
+      font-size: 0.95rem;
+      color: #617eab;
+      margin-bottom: 20px;
+      line-height: 1.6;
+      height: 48px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+    }
+    
+    .product-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      font-size: 0.95rem;
+    }
+    
+    .stock {
+      padding: 6px 14px;
+      border-radius: 50px;
+      background: linear-gradient(135deg, #9cd9cd, #d6f5f3);
+      color: #319795;
+      font-weight: 500;
+      font-size: 0.85rem;
+      letter-spacing: 0.3px;
+      border: 1px solid rgba(49, 151, 149, 0.2);
+      box-shadow: 0 2px 6px rgba(49, 151, 149, 0.1);
+      display: flex;
+      align-items: center;
+    }
+    
+    .stock::before {
+      content: '\f058';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      margin-right: 5px;
+    }
+    
+    .stock.out {
+      background: linear-gradient(135deg, #fff5f5, #fed7d7);
+      color: #e53e3e;
+      border-color: rgba(229, 62, 62, 0.2);
+      box-shadow: 0 2px 6px rgba(229, 62, 62, 0.1);
+    }
+    
+    .stock.out::before {
+      content: '\f057';
+    }
+    
+    .price {
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: #2d3748;
+      position: relative;
+      padding-left: 15px;
+    }
+  
+    .price::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 24px;
+      background: linear-gradient(to bottom, #6366f1, #c026d3);
+      border-radius: 4px;
+    }
+    
+    .button-container {
+      display: flex;
+      gap: 12px;
+    }
+    
+    .add-to-cart, .buy-now {
+      flex: 1;
+      padding: 14px 10px;
+      border: none;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      text-align: center;
+      text-decoration: none;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .add-to-cart::after, .buy-now::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 60%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      transform: rotate(45deg);
+      z-index: 1;
+      pointer-events: none;
+    }
+    
+    .add-to-cart:hover::after, .buy-now:hover::after {
+      opacity: 1;
+    }
+    
+    .add-to-cart {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6, #c026d3);
+      box-shadow: 0 6px 15px rgba(99, 102, 241, 0.25);
+    }
+    
+    .add-to-cart:hover {
+      background: linear-gradient(135deg, #5152cd, #7c4ddd, #a21caf);
+      box-shadow: 0 8px 20px rgba(99, 102, 241, 0.35);
+      transform: translateY(-3px);
+    }
+    
+    .buy-now {
+      background: linear-gradient(135deg, #8d073d, #69043a, #8c0967);
+      box-shadow: 0 6px 15px rgba(249, 115, 22, 0.25);
+    }
+    
+    .buy-now:hover {
+      background: linear-gradient(135deg, #043239, #124856, #053f61);
+      box-shadow: 0 8px 20px rgba(249, 115, 22, 0.35);
+      transform: translateY(-3px);
+    }
+    
+    .cart-icon, .buy-icon {
+      margin-right: 8px;
+      font-size: 0.95rem;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .out-of-stock {
+      background: linear-gradient(135deg, #cbd5e0, #a0aec0) !important;
+      color: #4a5568;
+      cursor: not-allowed;
+      box-shadow: 0 4px 10px rgba(160, 174, 192, 0.3) !important;
+      opacity: 0.8;
+      transform: none !important;
+    }
+    
+    .out-of-stock:hover {
+      background: linear-gradient(135deg, #cbd5e0, #a0aec0) !important;
+      transform: none !important;
+    }
+    
+    .out-of-stock::after {
+      display: none;
+    }
+
+    .site-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .title {
+      text-align: center;
+      margin-bottom: 40px;
+      color: #eff0f2;
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .product-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 35px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="site-container">
+    <h2 class="title">{{ zone }} Adventure Equipment</h2>
+    
+    <section id="water">
+      <div class="product-container">
+        {% for item in equipments %}
+          <div class="product-card">
+            <div class="product-image">
+              <img src="/{{ item.image }}" alt="{{ item.equipment_name }}">
+            </div>
+            <div class="product-details">
+              <h3 class="product-name">{{ item.equipment_name }}</h3>
+              <p class="product-description">{{ item.description }}</p>
+        
+              <div class="product-meta">
+                {% if item.stock|add:0 > 0 %}
+                  <span class="stock">In Stock: {{ item.stock }}</span>
+                {% else %}
+                  <span class="stock out">Out of Stock</span>
+                {% endif %}
+                <span class="price">${{ item.amount }}</span>
+              </div>
+            </div>
+            <div class="button-container">
+              {% if item.stock|add:0 > 0 %}
+                <a href="/cart_user/{{ item.equipment_id }}" class="add-to-cart">
+                  <i class="fas fa-shopping-cart cart-icon"></i> Add to Cart
+                </a>
+                <a href="#" class="buy-now">
+                  <i class="fas fa-bolt buy-icon"></i> Buy Now
+                </a>
+              {% else %}
+                <a href="#" class="add-to-cart out-of-stock">
+                  <i class="fas fa-ban cart-icon"></i> Out of Stock
+                </a>
+                <a href="#" class="buy-now out-of-stock">
+                  <i class="fas fa-ban buy-icon"></i> Out of Stock
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+  </div>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transparent Page</title>
+    {% load static %}
+    <style>
+        body {
+            
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 0.5px;
+            background-image: url("{% static 'img/c10.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.5); /* Transparent white background */
+            padding: 40px;
+            width: 500px; /* Increased container width */
+            border-radius: 15px; /* Rounded corners */
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
+            text-align: center;
+        }
+
+        /* Background Video */
+      .background-video {
+          position: fixed; /* Make video fixed in place */
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: -1; /* Place the video behind content */
+      }
+
+        .btn {
+            display: inline-block; /* Ensure buttons respect width and height */
+            width: 300px; /* Increased button width */
+            height: 60px; /* Increased button height */
+            background:  #2e0f0a;
+            color: #FFFFFF;
+            border: none;
+            outline: none;
+            border-radius: 30px;
+            box-shadow: 0 0 20px #195214;
+            font-size: 18px; /* Adjusted font size */
+            font-weight: bold;
+            transition: 0.3s ease-in-out; /* Smooth hover effect */
+            margin-top: 20px;
+            text-align: center; /* Center text inside button */
+            line-height: 60px; /* Ensure text is vertically centered */
+            text-decoration: none; /* Remove underline from links */
+            cursor: pointer; /* Indicate clickable buttons */
+        }
+
+        .btn:hover {
+            background: #A67B5B;
+            color: #fff;
+            transform: scale(1.1);
+            box-shadow: 0 0 30px #A67B5B;
+        }
+    </style>
+</head>
+<body>
+
+     
+    </div>
+    
+    <div class="container">
+        <p align="center"><b><h2>REGISTRATION</h2></p></b>
+        <a href="{% url 'user_registration' %}" class="btn">For User</a>
+        <br><br>
+        <a href="{% url 'seller_registration' %}" class="btn">For Shops</a>
+        <br><br>
+        <a href="{% url 'wholesaler_registration' %}" class="btn">For Manufacturers</a>
+
+    </div>
+    
+</body>
+</html>
+
+   

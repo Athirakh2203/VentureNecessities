@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Date Range Picker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f3f3f3;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background-color: white;
+      padding: 40px 50px;
+      border-radius: 16px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+      width: 400px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    .form-group {
+      margin: 20px 0;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+    input[type="date"] {
+      padding: 12px;
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 18px;
+    }
+    .button-link {
+      display: inline-block;
+      padding: 12px 30px;
+      font-size: 18px;
+      border-radius: 8px;
+      background-color: #007BFF;
+      color: white;
+      text-decoration: none;
+      text-align: center;
+      transition: background-color 0.3s ease;
+    }
+    .button-link:hover {
+      background-color: #0056b3;
+    }
+    .submit-button {
+      text-align: center;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <form id="dateForm" method="POST">
+      <div class="form-group">
+        <label for="start-date">Start Date:</label>
+        <input type="date" id="start-date" name="start_date" />
+      </div>
+      <div class="form-group">
+        <label for="end-date">End Date:</label>
+        <input type="date" id="end-date" name="end_date" />
+      </div>
+      <div class="submit-button">
+        <!-- <a href="" >Submit</a> -->
+        <button type="submit" class="button-link">Submit</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Failed</title>
+    <style>
+        .failure-container {
+            max-width: 600px;
+            margin: 50px auto;
+            text-align: center;
+            padding: 20px;
+            background: #fff0f0;
+            border-radius: 8px;
+        }
+        .failure-icon {
+            color: #ff0000;
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="failure-container">
+        <i class="fas fa-times-circle failure-icon"></i>
+        <h2>Payment Failed</h2>
+        <p>{{ error|default:"An error occurred during payment processing." }}</p>
+        <a href="{% url 'payment_page_seller' %}" class="pay-now-btn">Try Again</a>
+    </div>
+</body>
+</html>

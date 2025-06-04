@@ -1,0 +1,147 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Page</title>
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{% static "img/s1.jpg" %}') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            color: #fff;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* Form Container Styling */
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.1); /* Light transparent white background */
+            padding: 25px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Heading Styling */
+        h1, h2 {
+            font-weight: normal;
+            color:rgb(222, 74, 188);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+            margin-top: 0;
+        }
+
+        /* Input Fields and Button */
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 8px;
+            border: none;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+            height: 100px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 12px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        /* Feedback Container Styling */
+        .feedback-container {
+            width: 90%;
+            max-width: 600px;
+            margin-top: 20px;
+        }
+
+        .feedback-item {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 10px;
+            color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .feedback-item p {
+            margin: 5px 0;
+        }
+
+        .feedback-item strong {
+            color: #ffdd57;
+        }
+
+        /* Date styling */
+        small {
+            display: block;
+            margin-top: 5px;
+            font-size: 0.9em;
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Share Your Feedback</h1>
+        <form method="post">
+            {% csrf_token %}
+        
+            <div class="input-field">
+                <input type="text" name="name" placeholder="Your Name or Email" required>
+            </div>  
+        
+            <div class="input-field">
+                <textarea name="feedback_desc" placeholder="Write your feedback here..." required></textarea>
+            </div>
+        
+            <button type="submit">Post Feedback</button>
+        </form>
+    </div>
+
+    <div class="feedback-container">
+        <h2>Recent Feedback</h2>
+        {% for feedback in feedbacks %}
+    <div class="feedback-item">
+        <p><strong>{{ feedback.name }}</strong></p>
+        <p>{{ feedback.feedback_desc }}</p>
+        <small>Posted on {{ feedback.date|date:"F d, Y" }}</small>
+    </div>
+{% empty %}
+    <p>No feedback yet. Be the first to share your thoughts!</p>
+{% endfor %}
+
+<!-- Debug: Show if feedback list is empty -->
+{% if feedbacks|length == 0 %}
+    <p style="color: red;">No feedback available. Check if data is being saved correctly.</p>
+{% endif %}
+

@@ -1,0 +1,332 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(125deg, 
+rgba(43, 3, 46, 0.05) 0%, 
+rgb(36, 2, 27) 25%, 
+rgb(1, 43, 49) 50%, 
+rgb(2, 35, 42) 75%, 
+rgb(4, 38, 60) 100%);
+            animation: gradientBG 15s ease infinite;
+            background-size: 400% 400%;
+            position: relative;
+            padding: 20px;
+            overflow: hidden;
+        }
+        
+        /* 3D Background Effect */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(85, 3, 98, 0.05),
+                rgba(110, 4, 93, 0.05) 10px,
+                rgba(50, 1, 55, 0.02) 10px,
+                rgba(46, 3, 49, 0.02) 20px
+            );
+            z-index: -1;
+        }
+        
+        body::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(
+                ellipse at center,
+                rgba(255, 255, 255, 0.2) 0%,
+                rgba(255, 255, 255, 0) 70%
+            );
+            z-index: -1;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .floating-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        
+        .shape {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border-radius: 50%;
+            animation: float 15s infinite;
+        }
+        
+        .shape:nth-child(1) {
+            width: 120px;
+            height: 120px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .shape:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            top: 70%;
+            left: 80%;
+            animation-delay: 3s;
+        }
+        
+        .shape:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            top: 40%;
+            left: 5%;
+            animation-delay: 6s;
+        }
+        
+        .shape:nth-child(4) {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 75%;
+            animation-delay: 9s;
+        }
+        
+        .shape:nth-child(5) {
+            width: 180px;
+            height: 180px;
+            top: 80%;
+            left: 30%;
+            animation-delay: 12s;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translateY(-100px) rotate(180deg);
+                opacity: 0.4;
+            }
+            100% {
+                transform: translateY(0) rotate(360deg);
+                opacity: 0.8;
+            }
+        }
+        
+        .logout-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(to right,rgb(4, 47, 46),rgb(4, 94, 89));
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3), 0 0 20px rgba(2, 54, 50, 0.5);
+            z-index: 10;
+        }
+        
+        .logout-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4), 0 0 30px rgba(2, 46, 52, 0.6);
+        }
+        
+        h1 {
+            font-size: 40px;
+            font-weight: 800;
+            color: white;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            text-align: center;
+            letter-spacing: 3px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3), 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 5;
+        }
+        
+        .book {
+            width: 900px;
+            height: 550px;
+            display: flex;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3), 0 0 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            perspective: 1500px;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+            z-index: 2;
+            backdrop-filter: blur(5px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .book:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .page {
+            width: 50%;
+            height: 100%;
+            background: rgba(3, 67, 47, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            padding: 40px;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .page:first-child {
+            border-right: 1px solid rgba(200, 200, 200, 0.5);
+            background: linear-gradient(135deg, rgba(86, 3, 41, 0.95), rgba(240, 245, 255, 0.85));
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+            box-shadow: inset -5px 0 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .page:last-child {
+            background: linear-gradient(135deg, rgba(68, 3, 36, 0.85), rgba(255, 255, 255, 0.95));
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+        
+        .menu-item {
+            display: block;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            color: #2c3e50;
+            padding: 18px 30px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 280px;
+            background: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid transparent;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(52, 152, 219, 0.1), rgba(52, 152, 219, 0));
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+            z-index: -1;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-3px);
+            background:rgb(72, 3, 47);
+            border-left: 4px solidrgb(1, 28, 46);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.05);
+            color:rgb(2, 32, 51);
+        }
+        
+        .menu-item:hover::before {
+            transform: translateX(0);
+        }
+        
+        @media (max-width: 950px) {
+            .book {
+                width: 90%;
+                height: auto;
+                flex-direction: column;
+            }
+            
+            .page {
+                width: 100%;
+                padding: 30px 20px;
+            }
+            
+            .page:first-child {
+                border-right: none;
+                border-bottom: 1px solid rgba(200, 200, 200, 0.5);
+                border-radius: 20px 20px 0 0;
+            }
+            
+            .page:last-child {
+                border-radius: 0 0 20px 20px;
+            }
+        }
+    </style>
+    <script>
+        function confirmLogout() {
+            if (confirm("Are you sure you want to logout?")) {
+                window.location.href = "/";
+            }
+        }
+    </script>
+</head>
+<body>
+    <!-- Floating Background Shapes -->
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    
+    <button class="logout-button" onclick="confirmLogout()">Logout</button>
+    <h1>Admin Dashboard</h1>
+    <div class="book">
+        <div class="page">
+            <a href="/viewuser" class="menu-item">User Management</a>
+            <a href="/viewseller" class="menu-item">Seller Management</a>
+            <a href="/viewmanufacture" class="menu-item">Manufacturer Management</a>
+        </div>
+        <div class="page">
+            <a href="/category" class="menu-item">Manage Category</a>
+            <a href="/view_complaints" class="menu-item">Complaints & Replies</a>
+            <a href="/feedbacklist" class="menu-item">Feedback</a>
+        </div>
+    </div>
+</body>
+</html>

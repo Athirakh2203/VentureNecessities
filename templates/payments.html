@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful | Venture Necessities</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .success-container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            padding: 50px;
+            text-align: center;
+            position: relative;
+            max-width: 600px;
+            width: 90%;
+            overflow: hidden;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .confetti-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .confetti {
+            width: 15px;
+            height: 15px;
+            background-color: #f3e5ab;
+            position: absolute;
+            left: 50%;
+            animation: fall 3s linear infinite;
+            transform-origin: bottom;
+        }
+
+        @keyframes fall {
+            to {
+                transform: 
+                    translateY(100vh) 
+                    rotate(360deg);
+            }
+        }
+
+        .success-icon {
+            font-size: 100px;
+            color: #4CAF50;
+            margin-bottom: 20px;
+            animation: bounce 1s ease-in-out;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-30px);}
+            60% {transform: translateY(-15px);}
+        }
+
+        .success-title {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .success-message {
+            font-size: 1.2rem;
+            color: #34495e;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .order-details {
+            background: rgba(76, 175, 80, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .order-details p {
+            margin: 10px 0;
+            color: #2c3e50;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: #f3e5ab;
+            color: #2c3e50;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 14px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 600px) {
+            .success-container {
+                padding: 30px;
+            }
+
+            .success-title {
+                font-size: 2rem;
+            }
+
+            .success-message {
+                font-size: 1rem;
+            }
+
+            .btn-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="success-container">
+        <div class="confetti-container" id="confetti-container"></div>
+        <i class="fas fa-check-circle success-icon"></i>
+        <h1 class="success-title">Payment Successful!</h1>
+        <p class="success-message">
+            Congratulations! Your payment has been processed successfully. 
+            Your adventure gear is on its way to you.
+        </p>
+        <div class="order-details">
+            <p><strong>Order Number:</strong> #{{ order_number }}</p>
+            <p><strong>Total Amount:</strong> ${{ total_amount }}</p>
+            <p><strong>Estimated Delivery:</strong> {{ delivery_date }}</p>
+        </div>
+        <div class="btn-container">
+            <a href="/orders" class="btn btn-primary">View Order</a>
+            <a href="/viewsellerequip" class="btn btn-secondary">Continue Shopping</a>
+        </div>
+    </div>
+
+    <script>
+        function createConfetti() {
+            const container = document.getElementById('confetti-container');
+            const colors = ['#f3e5ab', '#ffd700', '#4CAF50', '#ff6b6b', '#4ecdc4'];
+            
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                
+                // Random positioning
+                confetti.style.left = `${Math.random() * 100}%`;
+                confetti.style.animationDelay = `${Math.random() * 3}s`;
+                
+                // Random color
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                // Random size
+                const size = 5 + Math.random() * 10;
+                confetti.style.width = `${size}px`;
+                confetti.style.height = `${size}px`;
+                
+                container.appendChild(confetti);
+            }
+        }
+
+        createConfetti();
+    </script>
+</body>
+</html>

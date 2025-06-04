@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Manufacturers</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fff9f9 0%, #fff0e6 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        
+        h1 {
+            text-align: center;
+            margin: 30px 0;
+            color:rgb(134, 68, 106);
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(224, 143, 159, 0.1);
+            letter-spacing: 1px;
+        }
+        
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            padding: 30px;
+            perspective: 1000px;
+        }
+        .card {
+            background:rgb(38, 112, 91);
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            height:300px;
+            padding: 20px;
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .card h2 {
+            margin: 0 0 10px;
+            font-size: 1.9em;
+            color:rgb(252, 251, 252);
+            text-align:center;
+        }
+        .card p {
+            margin: 5px 0;
+            color:rgb(252, 251, 252);
+            font-size:20px;
+           
+        }
+        .card-actions {
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            text-decoration: none; /* Ensures the text is not underlined */
+        }
+        .accept {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .reject {
+            background-color: #f44336;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Rental Details</h1>
+    <div class="container">
+        {% for req in rent_request %}
+        <div class="card">
+            <h2>{{ req.user.name }}</h2><br>
+            <p><strong>User ID:</strong> {{ req.user_id }}</p>
+            <p><strong>Start Date:</strong> {{ req.from_date }}</p>
+            <p><strong>End Date:</strong> {{ req.to_date }}</p><br>
+            <p><strong>Equipment ID:</strong> {{ req.equipment_id }}</p><br>
+            {% if req.status == 'pending' %}
+            <div class="card-actions">
+                <a href="/accept_req/{{req.user_id}}/{{req.rent_id}}" class="btn accept">Accept</a>
+                <a href="/reject_req/{{req.user_id}}/{{req.rent_id}}" class="btn reject">Reject</a>
+            </div>
+             {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

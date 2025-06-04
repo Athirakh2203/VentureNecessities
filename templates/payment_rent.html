@@ -1,0 +1,189 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rent Payment</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: linear-gradient(to right, #f8e1e9, #e3e7ff);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            gap: 20px; /* Space between the two containers */
+        }
+
+        .payment-details-container {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 600px; /* Adjusted to match the wider container in the image */
+            padding: 20px;
+        }
+
+        .order-summary-container {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 300px; /* Adjusted to match the narrower container in the image */
+            padding: 20px;
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1e40af;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            color: #334155;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #334155;
+            background: #ffffff;
+        }
+
+        .amount {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1e40af;
+            margin: 20px 0;
+        }
+
+        .amount::before {
+            content: 'Rs.';
+            font-size: 20px;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .pay-btn {
+            background-color: #1e40af;
+            color: white;
+        }
+
+        .equipment-details p {
+            font-size: 16px;
+            color: #64748b;
+            margin: 10px 0;
+        }
+
+        .equipment-details p strong {
+            color: #334155;
+        }
+
+        .error {
+            color: #dc2626;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .success {
+            color: #166534;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 16px;
+            background: #f0fdf4;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .payment-details-container, .order-summary-container {
+                width: 100%;
+                max-width: 600px;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
+    {% if success %}
+        <div class="success">{{ success }}</div>
+    {% endif %}
+    {% if equipment %}
+        <div class="payment-details-container">
+            <h2>Payment Details</h2>
+            <form method="POST" action="{% url 'payment_rent' equipment.equipment_id equipment.login_id %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="card_number">Card Number</label>
+                    <input type="text" id="card_number" name="card_number" placeholder="1234 5678 9012 3456" required>
+                </div>
+                <div class="form-group">
+                    <label for="card_holder">Card Holder Name</label>
+                    <input type="text" id="card_holder" name="card_holder" placeholder="John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label for="expiry_date">Expiry Date</label>
+                    <input type="text" id="expiry_date" name="expiry_date" placeholder="MM/YY" required>
+                </div>
+                <div class="form-group">
+                    <label for="cvv">CVV</label>
+                    <input type="text" id="cvv" name="cvv" placeholder="123" required>
+                </div>
+                <button type="submit" class="btn pay-btn"><i class="fas fa-credit-card"></i> Pay Now</button>
+            </form>
+        </div>
+        <div class="order-summary-container">
+            <h2>Order Summary</h2>
+            <div class="equipment-details">
+                <p><strong>Equipment:</strong> {{ equipment.equipment_name }}</p>
+                <p><strong>Description:</strong> {{ equipment.description }}</p>
+                <p><strong>Seller:</strong> {{ equipment.login.username }}</p>
+               
+            </div> 
+            <div class="amount">{{ equipment.amount }}</div>
+        </div>
+    {% else %}
+        <div class="error">Equipment not found.</div>
+    {% endif %}
+</body>
+</html>

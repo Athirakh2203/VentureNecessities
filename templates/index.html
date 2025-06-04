@@ -1,0 +1,566 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venture Necessities</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600&family=Oswald:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/all.min.css ' %}"> <!-- fontawesome -->
+    <!-- <link href="{% static 'https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css' %}" rel="stylesheet"> -->
+    <link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tooplate-antique-cafe.css' %}">
+    
+<!--
+
+Tooplate 2126 Antique Cafe
+
+https://www.tooplate.com/view/2126-antique-cafe
+
+-->
+</head>
+<style>
+    .slideshow {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        background-size: cover;
+        background-position: center;
+        animation: slideshow 25s infinite linear;
+    }
+    
+    @keyframes slideshow {
+        0%   { background-image: url('{% static "img/bg23.jpg" %}'); }
+        25%  { background-image: url('{% static "img/bg25.jpg" %}'); }
+        50%  { background-image: url('{% static "img/bg24.jpg" %}'); }
+        75%  { background-image: url('{% static "img/bg26.jpg" %}'); }
+        100% { background-image: url('{% static "img/bg27.jpg" %}'); }
+    }
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); /* 4 images per row */
+        gap: 15px; /* Space between images */
+        justify-content: center;
+    }
+    
+    .meetup img {
+        width: 100%;
+        height: 200px; /* Adjust height as needed */
+        object-fit: cover; /* Ensures images fit well */
+        border-radius: 10px;
+    }
+
+    {% load static %}
+
+    /* Glassy Navbar Styling */
+    .navbar-custom {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.1); /* Glassy effect */
+        backdrop-filter: blur(10px); /* Blur effect */
+        z-index: 1000;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .navbar-custom a {
+        color: gold;
+        font-size: 18px;
+        padding: 10px 15px;
+        transition: 0.3s;
+    }
+
+    .navbar-custom a:hover {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 5px;
+    }
+
+    /* Mobile Menu */
+    .menu-toggle {
+        display: none;
+        cursor: pointer;
+        font-size: 24px;
+        color: gold;
+    }
+
+    @media (max-width: 768px) {
+        .nav-links {
+            display: none;
+            flex-direction: column;
+            background: rgba(0, 0, 0, 0.7);
+            position: absolute;
+            top: 60px;
+            right: 10px;
+            width: 200px;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        .nav-links a {
+            display: block;
+            padding: 10px;
+        }
+
+        .menu-toggle {
+            display: block;
+        }
+    }
+
+        /* Fixed Transparent Black Navbar */
+        .navbar-custom {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.6); /* Transparent Black */
+            backdrop-filter: blur(10px); /* Glass Effect */
+            z-index: 1000;
+            padding: 15px 0;
+        }
+    
+        /* Flex Container for Centered Navbar */
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    
+        /* Navbar Links */
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+    
+        .nav-links a {
+            color:#A67D3D; /* Golden Brown */
+            font-size: 22px;
+            font-weight: 600;
+            padding: 12px 18px;
+            text-decoration: none;
+            position: relative;
+            transition: color 0.3s ease-in-out;
+        }
+    
+        /* Underline on Hover */
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 100%;
+            height: 2px;
+            background: #FFD700; /* Bright Gold */
+            transform: scaleX(0);
+            transition: transform 0.3s ease-in-out;
+        }
+    
+        .nav-links a:hover::after {
+            transform: scaleX(1);
+        }
+    
+        /* Coffee Brown on Click */
+        .nav-links a:active {
+            color: #6F4E37; /* Coffee Brown */
+        }
+    
+        /* Mobile Menu */
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 26px;
+            color: #FFD700;
+        }
+    
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+            }
+    
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                background: rgba(0, 0, 0, 0.9);
+                position: absolute;
+                top: 70px;
+                width: 100%;
+                text-align: center;
+                padding: 20px;
+            }
+    
+            .nav-links a {
+                display: block;
+                padding: 10px 0;
+            }
+    
+            .menu-toggle {
+                display: block;
+            }
+        }
+    </style>
+    
+    
+  
+     
+    
+    
+<body>    
+    <!-- Intro -->
+    <div id="intro" class="parallax-window slideshow">
+        <!-- Navbar -->
+    <nav class="navbar-custom">
+        <div class="nav-container">
+            <!-- Hamburger Menu -->
+            <div class="menu-toggle" id="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+    
+            <!-- Nav Links -->
+            <ul class="nav-links">
+                <li><a href="#intro">Intro</a></li>
+                <li><a href="#menu">Our Products</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="{% url 'registration' %}">Register</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="#service">Services</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+               
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- JavaScript for Mobile Menu -->
+    <script>
+        document.getElementById("menu-toggle").addEventListener("click", function() {
+            document.querySelector(".nav-links").classList.toggle("hidden");
+        });
+    </script>
+     
+       
+        
+        
+        <div class="container mx-auto px-2 tm-intro-width">
+            <div class="sm:pb-60 sm:pt-48 py-20">
+                <div class="bg-black bg-opacity-70 p-12 mb-5 text-center">
+                    <h1 class="text-white text-5xl tm-logo-font mb-5">VENTURE NECESSITIES</h1>
+                    <p class="tm-text-gold tm-text-2xl">Gear Up For Your Next Journey</p>
+                </div>    
+    
+                <div class="text-center">
+                    <div class="inline-block">
+                        <a href="#menu" class="flex justify-center items-center bg-black bg-opacity-70 py-6 px-8 rounded-lg font-semibold tm-text-2xl tm-text-gold hover:text-gray-200 transition">
+                            <i class="fas fa-coffee mr-3"></i>
+                            <span>Let's explore...</span>                        
+                        </a>
+                    </div>                    
+                </div>                
+            </div>
+        </div>        
+    </div>
+    
+    <!-- Cafe Menu -->
+    <div id="menu" class="parallax-window" data-parallax="scroll" data-image-src="{% static 'img/bg28.jpg' %}">
+        <div class="container mx-auto tm-container py-24 sm:py-48">
+            <div class="text-center mb-16">
+                <h2 class="bg-white tm-text-brown py-6 px-12 text-4xl font-bold inline-block rounded-md">Our Category</h2>
+            </div>            
+            <div class="flex flex-col lg:flex-row justify-around items-center">
+                <div class="flex-1 m-5 rounded-xl px-4 py-6 sm:px-8 sm:py-10 tm-bg-brown tm-item-container">
+                    <div class="flex flex-col items-center mb-10 tm-menu-item">
+                        <img src="{% static 'img/prr1.jpg' %}" alt="Image" style="width: 160px; height: 160px; object-fit: cover; border-radius: 50%; border: 4px solid #FFD700; margin-bottom: 15px;">
+                        <h3 class="text-lg sm:text-xl tm-text-yellow font-bold">Hiking</h3>
+                    </div>
+                    <div class="flex flex-col items-center mb-10 tm-menu-item">
+                        <img src="{% static 'img/prr2.jpg' %}" alt="Image" style="width: 160px; height: 160px; object-fit: cover; border-radius: 50%; border: 4px solid #FFD700; margin-bottom: 15px;">
+                        <h3 class="text-lg sm:text-xl tm-text-yellow font-bold">Trekking</h3>
+                    </div>
+                    <div class="flex flex-col items-center mb-10 tm-menu-item">
+                        <img src="{% static 'img/prrr3.jpg' %}" alt="Image" style="width: 160px; height: 160px; object-fit: cover; border-radius: 50%; border: 4px solid #FFD700; margin-bottom: 15px;">
+                        <h3 class="text-lg sm:text-xl tm-text-yellow font-bold">Kayaking</h3>
+                    </div>
+                    <div class="flex flex-col items-center mb-10 tm-menu-item">
+                        <img src="{% static 'img/prr4.jpg' %}" alt="Image" style="width: 160px; height: 160px; object-fit: cover; border-radius: 50%; border: 4px solid #FFD700; margin-bottom: 15px;">
+                        <h3 class="text-lg sm:text-xl tm-text-yellow font-bold">Hot Air Ballooning</h3>
+                    </div>
+                    <div class="flex flex-col items-center mb-10 tm-menu-item"> 
+                        <img src="{% static 'img/prr5.jpg' %}" alt="Image" style="width: 160px; height: 160px; object-fit: cover; border-radius: 50%; border: 4px solid #FFD700; margin-bottom: 15px;">
+                        <h3 class="text-lg sm:text-xl tm-text-yellow font-bold">Scuba Diving</h3>
+                    </div>
+                </div>
+                <div class="flex-1 m-5 rounded-xl px-4 py-6 sm:px-8 sm:py-10 tm-bg-brown tm-item-container">
+                    <div class="flex flex-col items-center mb-10 tm-menu-item">
+                        <img src="{% static 'img/prrr5.jpg' %}" alt="Image" style="width: 160px; height: 160px; object-fit: cover; border-radius: 50%; border: 4px solid #FFD700; margin-bottom: 15px;">
+                        <h3 class="text-lg sm:text-xl tm-text-yellow font-bold">Snow Boarding</h3>
+                    </div>
+                    <div class="flex flex-col items-center mb-10 tm-menu-item">
+                        <img src="{% static 'img/prrr7.jpg' %}" alt="Image" style="width: 160px; height: 160px; object-fit: cover; border-radius: 50%; border: 4px solid #FFD700; margin-bottom: 15px;">
+                        <h3 class="text-lg sm:text-xl tm-text-yellow font-bold">Ice Climbing</h3>
+                    </div>
+                    <div class="flex flex-col items-center mb-10 tm-menu-item">
+                        <img src="{% static 'img/prrr8.jpg' %}" alt="Image" style="width: 160px; height: 160px; object-fit: cover; border-radius: 50%; border: 4px solid #FFD700; margin-bottom: 15px;">
+                        <h3 class="text-lg sm:text-xl tm-text-yellow font-bold">Paragliding</h3>
+                    </div>
+                    <div class="flex flex-col items-center mb-10 tm-menu-item">
+                        <img src="{% static 'img/prr9.jpg' %}" alt="Image" style="width: 160px; height: 160px; object-fit: cover; border-radius: 50%; border: 4px solid #FFD700; margin-bottom: 15px;">
+                        <h3 class="text-lg sm:text-xl tm-text-yellow font-bold">Sky Diving</h3>
+                    </div>
+                    <div class="flex flex-col items-center mb-10 tm-menu-item">
+                        <img src="{% static 'img/prr10.jpg' %}" alt="Image" style="width: 160px; height: 160px; object-fit: cover; border-radius: 50%; border: 4px solid #FFD700; margin-bottom: 15px;">
+                        <h3 class="text-lg sm:text-xl tm-text-yellow font-bold">Bungee Jumping</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="about" class="parallax-window" data-parallax="scroll" data-image-src="{% static 'img/bg31.jpg' %} ">
+        <div class="container mx-auto tm-container py-24 sm:py-48">
+            <div class="tm-item-container sm:ml-auto sm:mr-12 mx-auto sm:px-0 px-4">
+                <div class="bg-white bg-opacity-80 p-12 pb-14 rounded-xl mb-5">
+                    <h2 class="mb-6 tm-text-green text-4xl font-medium">About our Website</h2>
+                    <p class="mb-6 text-base leading-8">
+                        Connecting adventurers with reliable equipment for unforgettable experiences.
+                        Our story began with a mission to make outdoor adventures accessible and affordable for 
+                        everyone. Recognizing the challenges adventurers face in acquiring quality gear, we created
+                         a platform to bridge the gap between manufacturers, sellers, and enthusiasts. Whether you're
+                          trekking through rugged mountains or camping under starry skies, we are here to equip you for every 
+                          step of your journey.
+                  </p>
+                    <p class="text-base leading-8">
+                        We envision a world where every adventurer, from beginners to experts, can explore without limits. 
+                        Our platform fosters collaboration between manufacturers, sellers, and users to create a thriving community 
+                        of explorers who value quality, sustainability, and convenience. </p>
+                </div>
+                <a href="#contact" class="inline-block tm-bg-green transition text-white text-xl pt-3 pb-4 px-8 rounded-md">
+                    <i class="far fa-comments mr-4"></i>
+                    Contact
+                </a>
+            </div>           
+        </div>        
+    </div>
+
+
+    <div id="service" class="parallax-window" data-parallax="scroll" data-image-src="{% static 'img/s19.jpg' %}">
+        <div class="container mx-auto tm-container py-24 sm:py-48">
+            <div class="text-center mb-16">
+                <h2 class="bg-white tm-text-brown py-6 px-12 text-4xl font-medium inline-block rounded-md">
+                    Our Services
+                </h2>
+            </div>            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                <!-- Product 1 -->
+                <div class="flex m-5 rounded-xl px-4 py-6 sm:px-8 sm:py-10 tm-bg-brown">
+                    <img src="{% static 'img/s12.jpg' %}" alt="Image" class="w-40 h-40 object-cover rounded-md">
+                    <div class="ml-3 sm:ml-6">
+                        <h3 class="text-lg sm:text-xl mb-2 sm:mb-3 tm-text-yellow">Equipment Rentals</h3>
+                        <div class="text-white text-md sm:text-lg font-light mb-1">We offer high-quality adventure gear for rent, ensuring you have everything<br> you need for your next expedition without the burden of ownership.</div>
+                    </div>                    
+                </div>
+                <!-- Product 2 -->
+                <div class="flex m-5 rounded-xl px-4 py-6 sm:px-8 sm:py-10 tm-bg-brown">
+                    <img src="{% static 'img/s15.jpg' %}" alt="Image" class="w-40 h-40 object-cover rounded-md">
+                    <div class="ml-3 sm:ml-6">
+                        <h3 class="text-lg sm:text-xl mb-2 sm:mb-3 tm-text-yellow">Gear Maintenance</h3>
+                        <div class="text-white text-md sm:text-lg font-light mb-1">Our team ensures your adventure equipment stays in top condition with professional maintenance and repair services.</div>
+                    </div>                    
+                </div>
+                <!-- Product 3 -->
+                <div class="flex m-5 rounded-xl px-4 py-6 sm:px-8 sm:py-10 tm-bg-brown">
+                    <img src="{% static 'img/s14.jpg' %}" alt="Image" class="w-40 h-40 object-cover rounded-md">
+                    <div class="ml-3 sm:ml-6">
+                        <h3 class="text-lg sm:text-xl mb-2 sm:mb-3 tm-text-yellow">Custom Gear Solutions</h3>
+                        <div class="text-white text-md sm:text-lg font-light mb-1">We provide customizations to tailor gear to your specific adventure needs, whether it’s for climbing, trekking, or camping</div>
+                    </div>                    
+                </div>
+                <!-- Product 4 -->
+                <div class="flex m-5 rounded-xl px-4 py-6 sm:px-8 sm:py-10 tm-bg-brown">
+                    <img src="{% static 'img/s18.jpg' %}" alt="Image" class="w-40 h-40 object-cover rounded-md">
+                    <div class="ml-3 sm:ml-6">
+                        <h3 class="text-lg sm:text-xl mb-2 sm:mb-3 tm-text-yellow">Community & Networking</h3>
+                        <div class="text-white text-md sm:text-lg font-light mb-1">Connect with fellow adventure enthusiasts, share experiences, and plan trips together.</div>
+                    </div>                    
+                </div>
+                <!-- Product 5 -->
+                <div class="flex m-5 rounded-xl px-4 py-6 sm:px-8 sm:py-10 tm-bg-brown">
+                    <img src="{% static 'img/s17.jpg' %}" alt="Image" class="w-40 h-40 object-cover rounded-md">
+                    <div class="ml-3 sm:ml-6">
+                        <h3 class="text-lg sm:text-xl mb-2 sm:mb-3 tm-text-yellow">24/7 Customer Support</h3>
+                        <div class="text-white text-md sm:text-lg font-light mb-1">Get assistance for any inquiries regarding equipment, rentals, and trip planning.</div>
+                    </div>                    
+                </div>
+       
+               
+            </div>
+        </div>
+    </div>
+    <div id="gallery" class="parallax-window" data-parallax="scroll" data-image-src="{% static 'img/bg111.jpg' %}">
+        <div class="container mx-auto tm-container py-24 sm:py-48">
+            <div class="text-center mb-16">
+                <h2 class="bg-white tm-text-brown py-6 px-12 text-4xl font-medium inline-block rounded-md">
+                    Adventure Gallery
+                </h2>
+            </div>            
+            <div id="memory" class="gallery grid-container">
+                <!-- Meetup Images -->
+                <div class="meetup"><img src="{% static 'img/l5.jpg' %}" alt=""></div>
+                <div class="meetup"><img src="{% static 'img/l6.jpg' %}" alt=""></div>
+                <div class="meetup"><img src="{% static 'img/l7.jpg' %}" alt=""></div>
+                <div class="meetup"><img src="{% static 'img/l4.jpg' %}" alt=""></div>
+                <div class="meetup"><img src="{% static 'img/l8.jpg' %}" alt=""></div>
+                <div class="meetup"><img src="{% static 'img/2.jpg' %}" alt=""></div>
+                <div class="meetup"><img src="{% static 'img/1.jpg' %}" alt=""></div>
+                <div class="meetup"><img src="{% static 'img/e13.jpg' %}" alt=""></div>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    
+    
+
+    
+    <div id="contact" class="parallax-window relative" data-parallax="scroll" data-image-src="{% static 'img/c3.jpg' %}">
+        <div class="container mx-auto tm-container pt-24 pb-48 sm:py-48">
+            <div class="flex flex-col lg:flex-row justify-around items-center lg:items-stretch">
+                <div class="flex-1 rounded-xl px-10 py-12 m-5 bg-white bg-opacity-80 tm-item-container">
+                    <h2 class="text-3xl mb-6 tm-text-green">Contact Us</h2>
+                    <p class="mb-6 text-lg leading-8">
+                        Get ready for your next adventure! We provide top-quality gear rentals, expert maintenance, and customized solutions for all your outdoor expeditions   
+                    </p>
+                    <p class="mb-10 text-lg">
+                        <span class="block mb-2">Tel: <a href="tel:0100200340" class="hover:text-yellow-600 transition">010-020-0340</a></span>
+                        <span class="block">Email: <a href="mailto:support@adventuregear.com" class="hover:text-yellow-600 transition">info@company.com</a></span>                        
+                    </p>
+                    <div class="text-center">
+                        <a href="https://www.google.com/maps"  class="inline-block text-white text-2xl pl-10 pr-12 py-6 rounded-lg transition tm-bg-green">
+                            <i class="fas fa-map-marked-alt mr-8"></i>
+                            Open Maps
+                        </a>
+                    </div>                    
+                </div>
+                <div class="flex-1 rounded-xl p-12 pb-14 m-5 bg-black bg-opacity-50 tm-item-container">
+                    <form action="" method="POST" class="text-lg">
+                        <input type="text" name="name" class="input w-full bg-black border-b bg-opacity-0 text-white px-0 py-4 mb-4 tm-border-gold" placeholder="Name" required="" />
+                        <input type="email" name="email" class="input w-full bg-black border-b bg-opacity-0 text-white px-0 py-4 mb-4 tm-border-gold" placeholder="Email" required="" />
+                        <textarea rows="6" name="message" class="input w-full bg-black border-b bg-opacity-0 text-white px-0 py-4 mb-4 tm-border-gold" placeholder="Message..." required=""></textarea>
+                        <div class="text-right">
+                            <button type="submit" class="text-white hover:text-yellow-500 transition">Send it</button>
+                        </div>                        
+                      </form>
+                </div>
+            </div>
+            <footer class="absolute bottom-0 left-0 w-full">
+                <div class="text-white container mx-auto tm-container p-8 text-lg flex flex-col md:flex-row justify-between">
+                    <span>Copyright 2022 Antique Cafe. All rights reserved.</span>
+    
+                </div>                
+            </footer>
+        </div>        
+    </div> 
+    
+    
+    <div id="service" class="parallax-window" data-parallax="scroll" data-image-src="{% static 'img/c5.jpg' %}">
+        <div class="container mx-auto tm-container py-24 sm:py-48">
+            <div class="text-center mb-16">
+                <h2 class="bg-white tm-text-brown py-6 px-12 text-4xl font-medium inline-block rounded-md">
+                    Our Customer Says
+                </h2>
+            </div>            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                <!-- Product 1 -->
+                <div class="flex m-5 rounded-xl px-4 py-6 sm:px-8 sm:py-10 tm-bg-brown">
+                    <img src="{% static 'img/testimonial-1.jpg' %}" alt="Image" class="w-40 h-40 object-cover rounded-md">
+                    <div class="ml-3 sm:ml-6">
+                        <h3 class="text-lg sm:text-xl mb-2 sm:mb-3 tm-text-yellow">John Doe</h3>
+                        <h4 class="text-lg sm:text-xl mb-2 sm:mb-3 tm-text-yellow">Mountain Climber</h4>
+                        <div class="text-white text-md sm:text-lg font-light mb-1">"The equipment I rented for my Himalayan trek was top-notch! The gear was durable, and the rental process was seamless. Highly recommend for adventure enthusiasts!.</div>
+                    </div>                    
+                </div>
+                <!-- Product 2 -->
+                <div class="flex m-5 rounded-xl px-4 py-6 sm:px-8 sm:py-10 tm-bg-brown">
+                    <img src="{% static 'img/testimonial-2.jpg' %}" alt="Image" class="w-40 h-40 object-cover rounded-md">
+                    <div class="ml-3 sm:ml-6">
+                        <h3 class="text-lg sm:text-xl mb-2 sm:mb-3 tm-text-yellow">Jane Smith</h3>
+                        <h4 class="text-lg sm:text-xl mb-2 sm:mb-3 tm-text-yellow">Kayaker</h4>
+                        <div class="text-white text-md sm:text-lg font-light mb-1">"I bought a high-quality kayak from this site, and it’s been amazing! The staff also guided me on maintenance tips, which was a bonus."
+                            .</div>
+                    </div>                    
+                </div>
+                <!-- Product 3 -->
+                <div class="flex m-5 rounded-xl px-4 py-6 sm:px-8 sm:py-10 tm-bg-brown">
+                    <img src="{% static 'img/testimonial-3.jpg' %}" alt="Image" class="w-40 h-40 object-cover rounded-md">
+                    <div class="ml-3 sm:ml-6">
+                        <h3 class="text-lg sm:text-xl mb-2 sm:mb-3 tm-text-yellow">Alex Brown</h3>
+                        <h4 class="text-lg sm:text-xl mb-2 sm:mb-3 tm-text-yellow">Camper</h4>
+                        <div class="text-white text-md sm:text-lg font-light mb-1"> "I rented camping gear for a week-long trip. The equipment was in excellent condition and made my experience worry-free. Will rent again!"
+                        </div>
+                    </div>                    
+                </div>
+                <!-- Product 4 -->
+                <div class="flex m-5 rounded-xl px-4 py-6 sm:px-8 sm:py-10 tm-bg-brown">
+                    <img src="{% static 'img/testimonial-4.jpg' %}" alt="Image" class="w-40 h-40 object-cover rounded-md">
+                    <div class="ml-3 sm:ml-6">
+                        <h3 class="text-lg sm:text-xl mb-2 sm:mb-3 tm-text-yellow">Sophan Lee</h3>
+                        <h4 class="text-lg sm:text-xl mb-2 sm:mb-3 tm-text-yellow">Adventurer</h4>
+                        <div class="text-white text-md sm:text-lg font-light mb-1"> "This site has the best range of adventure equipment for sale and rent. The staff were knowledgeable and helped me choose the right gear for my trip!"
+                        </div>
+                    </div>                    
+                </div>
+               
+        </div>
+    </div>
+
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'js/parallax.min.js' %}"></script>
+    <script src="{% static 'js/jquery.singlePageNav.min.js' %}"></script>
+    <script>
+
+        function checkAndShowHideMenu() {
+            if(window.innerWidth < 768) {
+                $('#tm-nav ul').addClass('hidden');                
+            } else {
+                $('#tm-nav ul').removeClass('hidden');
+            }
+        }
+
+        $(function(){
+            var tmNav = $('#tm-nav');
+            tmNav.singlePageNav();
+
+            checkAndShowHideMenu();
+            window.addEventListener('resize', checkAndShowHideMenu);
+
+            $('#menu-toggle').click(function(){
+                $('#tm-nav ul').toggleClass('hidden');
+            });
+
+            $('#tm-nav ul li').click(function(){
+                if(window.innerWidth < 768) {
+                    $('#tm-nav ul').addClass('hidden');
+                }                
+            });
+
+            $(document).scroll(function() {
+                var distanceFromTop = $(document).scrollTop();
+
+                if(distanceFromTop > 100) {
+                    tmNav.addClass('scroll');
+                } else {
+                    tmNav.removeClass('scroll');
+                }
+            });
+            
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

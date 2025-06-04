@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Checkout</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <style>
+        .checkout-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            gap: 20px;
+        }
+        .cart-summary-container {
+            flex: 1;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .summary-title {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .pay-now-btn {
+            display: block;
+            background: #4CAF50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 20px;
+            border: none;
+            cursor: pointer;
+        }
+        .page-title {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .error {
+            color: red;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h2 class="page-title">Secure Checkout</h2>
+    
+    <div class="checkout-container">
+        <div class="cart-summary-container">
+            <div class="cart-summary">
+                <div class="summary-title">Order Summary</div>
+                {% if error %}
+                    <div class="error">{{ error }}</div>
+                {% else %}
+                    <div class="summary-row summary-total">
+                        <span>Total:</span>
+                        <span>Rs. {{ total_amount }}</span>
+                    </div>
+                    <button id="rzp-button" class="pay-now-btn">Pay Now</button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    {% if error %}
+    <script>
+        alert("{{ error }}");
+    </script>
+    {% endif %}
+
+    {% if not error %}
+    <script>
+        var options = {
+            "key": "{{ razorpay_key }}",
+            "amount": "{{ amount_in_paise }}",
+            "currency": "INR",
+            "name": "Your Company Name",
+            "description": "Order Payment",
+            "order_id": "{{ razorpay_order_id }}",
+            "handler": function (response) {
+                // Create a form to submit payment details securely
+                var form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '{{ callback_url }}';
+                
+                // Add payment details as hidden fields
+                var createHiddenInput = function(name, value) {
+                    var input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = name;
+                    input.value = value;
+                    return input;
+                };
+                
+                // Add CSRF token
+                form.appendChild(createHiddenInput('csrfmiddlewaretoken', '{{ csrf_token }}'));
+                
+                // Add Razorpay response parameters
+                form.appendChild(createHiddenInput('razorpay_payment_id', response.razorpay_payment_id));
+                form.appendChild(createHiddenInput('razorpay_order_id', response.razorpay_order_id));
+                form.appendChild(createHiddenInput('razorpay_signature', response.razorpay_signature));
+                
+                // Submit the form
+                document.body.appendChild(form);
+                form.submit();
+            },
+            "prefill": {
+                "name": "",
+                "email": "",
+                "contact": ""
+            },
+            "theme": {
+                "color": "#4CAF50"
+            }
+        };
+        
+        var rzp1 = new Razorpay(options);
+        document.getElementById('rzp-button').onclick = function(e) {
+            rzp1.open();
+            e.preventDefault();
+        }
+    </script>
+    {% endif %}
+</body>
+</html>
